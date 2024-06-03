@@ -3,7 +3,7 @@
 
 schema:
   schema_id: flypy_zrmfast
-  name: 小鹤快手 # 鹤拼快形 
+  name: 小鹤快手 # 鹤拼快形
   version: "0.1"
   author:
     - Functoreality
@@ -17,13 +17,13 @@ schema:
 switches:
   - name: ascii_mode
     reset: 0
-    states: [ 中文, 西文 ]
+    states: [中文, 西文]
   - name: full_shape
-    states: [ 半角, 全角 ]
+    states: [半角, 全角]
   - name: simplification
-    states: [ 漢字, 汉字 ]
+    states: [漢字, 汉字]
   - name: ascii_punct
-    states: [ 。，, ．， ]
+    states: [。，, ．，]
 
 engine:
   processors:
@@ -72,84 +72,134 @@ speller:
   ## speller 未允许 aj 表示 an
   algebra:
     #- xform/[[]// ## 取消注释后：直接引导辅助码
-    - erase/^ng\[kx$/   # 响应超级简拼，取消「嗯 ng」的独占
-    - erase/^n\[\w+$/   # 响应超级简拼，取消「嗯 n」的独占
-    - erase/^m\[\w+$/   # 响应超级简拼，取消「呒 m」的独占
-    - erase/^m\[\w+$/   # 响应超级简拼，取消「呣 m」的独占
+    - erase/^ng\[kx$/ # 响应超级简拼，取消「嗯 ng」的独占
+    - erase/^n\[\w+$/ # 响应超级简拼，取消「嗯 n」的独占
+    - erase/^m\[\w+$/ # 响应超级简拼，取消「呒 m」的独占
+    - erase/^m\[\w+$/ # 响应超级简拼，取消「呣 m」的独占
     #- xform/[[]// ## 取消注释后：直接引导辅助码
     # - derive/^(..).+$/$1/
     # - derive/^(..[[].).+$/$1/
-    - derive/^(\w+)\[(\w)(\w)$/$1\[$2$3/    # Flypy: ABCD
-    - derive/^(\w+)\[(\w)(\w)$/$1\[$2/      # Flypy: ABC
+    - derive/^(\w+)\[(\w)(\w)$/$1\[$2$3/ # Flypy: ABCD
+    - derive/^(\w+)\[(\w)(\w)$/$1\[$2/ # Flypy: ABC
     - derive/^(\w+)\[(\w)(\w)$/$1/
     - derive/^([jqxy])v/$1u/
     - derive/^([jqxy])u/$1v/
     - derive/^(j)n/$1c/
 
-    - derive/^l/n/                     # l -> n
-    - derive/^n/l/                     # n -> l
+    - derive/^l/n/ # l -> n
+    - derive/^n/l/ # n -> l
 
-    - derive/^(v)(.)/z$2/               # zh => z
-    - derive/^(i)(.)/c$2/               # ch => c
-    - derive/^(u)(.)/s$2/               # sh => s
-    - derive/^(z)(.)/v$2/               # z => zh
-    - derive/^(c)(.)/i$2/               # c => ch
-    - derive/^(s)(.)/u$2/               # s => sh
-    - derive/^([zcsviu])f/$1g/          # [zcs][h]en 可以通过 [zcs][h]eng 打出
-    - derive/^([zcsviu])g/$1f/          # [zcs][h]eng 可以通过 [zcs][h]en 打出
-    - derive/^([qtypdjlxbnm])k/$1b/     # ing 可以通过 in 打出
-    - derive/^(.)b/$1k/                 # in 可以通过 ing 打出
-    - abbrev/^([wkif]).+$/$1/   # 超级简拼
+    - derive/^(v)(.)/z$2/ # zh => z
+    - derive/^(i)(.)/c$2/ # ch => c
+    - derive/^(u)(.)/s$2/ # sh => s
+    - derive/^(z)(.)/v$2/ # z => zh
+    - derive/^(c)(.)/i$2/ # c => ch
+    - derive/^(s)(.)/u$2/ # s => sh
+    - derive/^([zcsviu])f/$1g/ # [zcs][h]en 可以通过 [zcs][h]eng 打出
+    - derive/^([zcsviu])g/$1f/ # [zcs][h]eng 可以通过 [zcs][h]en 打出
+    - derive/^([qtypdjlxbnm])k/$1b/ # ing 可以通过 in 打出
+    - derive/^(.)b/$1k/ # in 可以通过 ing 打出
+    - abbrev/^([wkif]).+$/$1/ # 超级简拼
 
 translator:
   dictionary: flypy_zrmfast
   spelling_hints: 1
   # enable_user_dict: true
   # preedit_format:
-    # - "xform/((^|[ '])[bpmfdtnljqx])n/$1iao/"
-    # - "xform/((^|[ '])\\w)g/$1eng/"
-    # - "xform/((^|[ '])\\w)q/$1iu/"
-    # - "xform/((^|[ '])\\w)w/$1ei/"
-    # - "xform/((^|[ '])[dtnlgkhjqxyvuirzcs])r/$1uan/"
-    # - "xform/((^|[ '])\\w)t/$1ve/"
-    # - "xform/((^|[ '])\\w)y/$1un/"
-    # - "xform/((^|[ '])[dtnlgkhvuirzcs])o/$1uo/"
-    # - "xform/((^|[ '])\\w)p/$1ie/"
-    # - "xform/((^|[ '])[jqx])s/$1iong/"
-    # - "xform/((^|[ '])\\w)s/$1ong/"
-    # - "xform/((^|[ '])\\w)d/$1ai/"
-    # - "xform/((^|[ '])\\w)f/$1en/"
-    # - "xform/((^|[ '])\\w)h/$1ang/"
-    # - "xform/((^|[ '])\\w)j/$1an/"
-    # - "xform/((^|[ '])[gkhvuirzcs])k/$1uai/"
-    # - "xform/((^|[ '])\\w)k/$1ing/"
-    # - "xform/((^|[ '])[jqxnl])l/$1iang/"
-    # - "xform/((^|[ '])\\w)l/$1uang/"
-    # - "xform/((^|[ '])\\w)z/$1ou/"
-    # - "xform/((^|[ '])[gkhvuirzcs])x/$1ua/"
-    # - "xform/((^|[ '])\\w)x/$1ia/"
-    # - "xform/((^|[ '])\\w)c/$1ao/"
-    # - "xform/((^|[ '])[dtgkhvuirzcs])v/$1ui/"
-    # - "xform/((^|[ '])\\w)b/$1in/"
-    # - "xform/((^|[ '])\\w)m/$1ian/"
-    # - "xform/(^|[ '])([aoe])\\2(\\w)/$1$2$3/"
-    # - "xform/(^|[ '])v/$1zh/"
-    # - "xform/(^|[ '])i/$1ch/"
-    # - "xform/(^|[ '])u/$1sh/"
-    # - "xform/((^|[ '])[jqxy])v/$1u/"
-    # - "xform/((^|[ '])[nl])v/$1ü/"
+  # - "xform/((^|[ '])[bpmfdtnljqx])n/$1iao/"
+  # - "xform/((^|[ '])\\w)g/$1eng/"
+  # - "xform/((^|[ '])\\w)q/$1iu/"
+  # - "xform/((^|[ '])\\w)w/$1ei/"
+  # - "xform/((^|[ '])[dtnlgkhjqxyvuirzcs])r/$1uan/"
+  # - "xform/((^|[ '])\\w)t/$1ve/"
+  # - "xform/((^|[ '])\\w)y/$1un/"
+  # - "xform/((^|[ '])[dtnlgkhvuirzcs])o/$1uo/"
+  # - "xform/((^|[ '])\\w)p/$1ie/"
+  # - "xform/((^|[ '])[jqx])s/$1iong/"
+  # - "xform/((^|[ '])\\w)s/$1ong/"
+  # - "xform/((^|[ '])\\w)d/$1ai/"
+  # - "xform/((^|[ '])\\w)f/$1en/"
+  # - "xform/((^|[ '])\\w)h/$1ang/"
+  # - "xform/((^|[ '])\\w)j/$1an/"
+  # - "xform/((^|[ '])[gkhvuirzcs])k/$1uai/"
+  # - "xform/((^|[ '])\\w)k/$1ing/"
+  # - "xform/((^|[ '])[jqxnl])l/$1iang/"
+  # - "xform/((^|[ '])\\w)l/$1uang/"
+  # - "xform/((^|[ '])\\w)z/$1ou/"
+  # - "xform/((^|[ '])[gkhvuirzcs])x/$1ua/"
+  # - "xform/((^|[ '])\\w)x/$1ia/"
+  # - "xform/((^|[ '])\\w)c/$1ao/"
+  # - "xform/((^|[ '])[dtgkhvuirzcs])v/$1ui/"
+  # - "xform/((^|[ '])\\w)b/$1in/"
+  # - "xform/((^|[ '])\\w)m/$1ian/"
+  # - "xform/(^|[ '])([aoe])\\2(\\w)/$1$2$3/"
+  # - "xform/(^|[ '])v/$1zh/"
+  # - "xform/(^|[ '])i/$1ch/"
+  # - "xform/(^|[ '])u/$1sh/"
+  # - "xform/((^|[ '])[jqxy])v/$1u/"
+  # - "xform/((^|[ '])[nl])v/$1ü/"
 
 punctuator:
   import_preset: symbols
   half_shape:
-    '>' : [》, 〉, '> ', », › ]
-    '"' : { pair: [ '‘', '’' ] } ## 添加注释后：恢复默认引号
-    '''' : { pair: [ '“', '”' ] } ## 添加注释后：恢复默认引号
+    ">": [》, 〉, "> ", », ›]
+    '"': { pair: ["‘", "’"] } ## 添加注释后：恢复默认引号
+    "'": { pair: ["“", "”"] } ## 添加注释后：恢复默认引号
   symbols:
-    '/er': [ 二, 貳, ₂, ², Ⅱ, ⅱ, ②, ➁, ❷, ➋, ⓶, ⑵, ⒉, ２, ㊁, ㈡, 弍, 弐, 貮, 㒃, 㒳, 兩, 倆, ㆓]
-    '/san': [ 三, 叄, ₃, ³, Ⅲ, ⅲ, ③, ➂, ❸, ➌, ⓷, ⑶, ⒊, ３, ㊂, ㈢, 參, 参, 叁, 弎, 仨, ㆔]
-    '/si': [ 四, 肆, ₄, ⁴, Ⅳ, ⅳ, ④, ➃, ❹, ➍, ⓸, ⑷, ⒋, ４, ㊃, ㈣, 亖]
-    '/zb': [┌, └, ┐, ┘, ─, │, ├, ┤, ┬, ┴, ┼, ┏, ┗, ┓, ┛, ━, ┃, ┣, ┫, ┳, ┻, ╋] ## 制表符
+    "/er":
+      [
+        二,
+        貳,
+        ₂,
+        ²,
+        Ⅱ,
+        ⅱ,
+        ②,
+        ➁,
+        ❷,
+        ➋,
+        ⓶,
+        ⑵,
+        ⒉,
+        ２,
+        ㊁,
+        ㈡,
+        弍,
+        弐,
+        貮,
+        㒃,
+        㒳,
+        兩,
+        倆,
+        ㆓,
+      ]
+    "/san":
+      [
+        三,
+        叄,
+        ₃,
+        ³,
+        Ⅲ,
+        ⅲ,
+        ③,
+        ➂,
+        ❸,
+        ➌,
+        ⓷,
+        ⑶,
+        ⒊,
+        ３,
+        ㊂,
+        ㈢,
+        參,
+        参,
+        叁,
+        弎,
+        仨,
+        ㆔,
+      ]
+    "/si": [四, 肆, ₄, ⁴, Ⅳ, ⅳ, ④, ➃, ❹, ➍, ⓸, ⑷, ⒋, ４, ㊃, ㈣, 亖]
+    "/zb": [┌, └, ┐, ┘, ─, │, ├, ┤, ┬, ┴, ┼, ┏, ┗, ┓, ┛, ━, ┃, ┣, ┫, ┳, ┻, ╋] ## 制表符
 
 key_binder:
   import_preset: default
@@ -172,12 +222,12 @@ recognizer:
   # import_preset: default
   patterns:
     uppercase: "^[A-Z].*$"
-    punct: '^/[015-9A-Za-z]+$' ## use "/er" instead of "/2"
-    ## associate schemes: 
+    punct: "^/[015-9A-Za-z]+$" ## use "/er" instead of "/2"
+    ## associate schemes:
 
     # quanpin: "^oq[a-z]*'?$"
     reverse_lookup: "^or[a-z]*'?$" # "[[]b[a-z]*'?$"
-    # emojis: "^oe[a-z]*'?$" # "^oe.*$" 
+    # emojis: "^oe[a-z]*'?$" # "^oe.*$"
     verbatim: "^ox.*$"
     soft_capslock: "^od.*$"
     dbpy_flypy_help: "^oh.*$"
@@ -258,4 +308,3 @@ tex_translator:
   tag: tex_translator
   prefix: "of"
   tips: " TeX 公式"
-
