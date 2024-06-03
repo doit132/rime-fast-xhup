@@ -8,3 +8,7 @@ patch:
   schema_list:
     - schema: flypy_xhfast
     - schema: easy_en
+  "ascii_composer/switch_key":
+    Control_L: noop
+    Control_R: commit_code 
+
