@@ -39,7 +39,7 @@ engine:
     - lua_processor@launcher_processor
     - lua_processor@select_char_processor
     - lua_processor@flypy_switch_processor
-    - lua_processor@pair_symbols_processor
+    # - lua_processor@pair_symbols_processor
     - lua_processor@idiom_expand_processor
     - lua_processor@cold_word_drop_processor
     - lua_processor@word_autocommit_processor
